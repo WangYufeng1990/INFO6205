@@ -9,11 +9,11 @@ public class Solution {
 
     //1.Search Insert Position
     public int searchInsert(int[] nums, int target) {
-        int start = 0, end = nums.length-1;
+        int start = 0, end = nums.length - 1;
         if (nums[start] > target) return 0;
-        else if (nums[end] < target) return end+1;
-        while (start+1 < end) {
-            int mid = (end - start)/2 + start;
+        else if (nums[end] < target) return end + 1;
+        while (start + 1 < end) {
+            int mid = (end - start) / 2 + start;
             if (nums[mid] == target) return mid;
             else if (nums[mid] < target) start = mid;
             else end = mid;
@@ -26,16 +26,15 @@ public class Solution {
     public int singleNonDuplicate(int[] nums) {
         if (nums.length == 1) return nums[0];
         int len = nums.length;
-        int start = 0, end = len-1;
+        int start = 0, end = len - 1;
         while (start < end) {
-            int mid = (end - start)/2 + start;
+            int mid = (end - start) / 2 + start;
             if (mid % 2 == 0) {
-                if (nums[mid] == nums[mid+1]) start = mid+2;
+                if (nums[mid] == nums[mid + 1]) start = mid + 2;
                 else end = mid;
-            }
-            else {
-                if (nums[mid] == nums[mid-1]) start = mid+1;
-                else end = mid-1;
+            } else {
+                if (nums[mid] == nums[mid - 1]) start = mid + 1;
+                else end = mid - 1;
             }
         }
         return nums[start];
@@ -44,10 +43,10 @@ public class Solution {
     //3.Find Minimum in Rotated Sorted Array
     public int findMin(int[] nums) {
         int len = nums.length;
-        int start = 0, end = len-1;
+        int start = 0, end = len - 1;
         if (nums[start] < nums[end]) return nums[start];
-        while (start+1 < end) {
-            int mid = (end - start)/2 + start;
+        while (start + 1 < end) {
+            int mid = (end - start) / 2 + start;
             if (nums[mid] > nums[start]) start = mid;
             else end = mid;
         }
@@ -74,7 +73,7 @@ public class Solution {
     public int[] topKFrequent(int[] nums, int k) {
         Map<Integer, Integer> map = new HashMap<>();
         for (int num : nums) {
-            map.put(num, map.getOrDefault(num, 0)+1);
+            map.put(num, map.getOrDefault(num, 0) + 1);
         }
 
         PriorityQueue<int[]> pq = new PriorityQueue<>((int[] a1, int[] a2) -> a1[1] - a2[1]);
@@ -85,8 +84,7 @@ public class Solution {
                     pq.poll();
                     pq.offer(new int[]{num, count});
                 }
-            }
-            else {
+            } else {
                 pq.offer(new int[]{num, count});
             }
         }
@@ -103,7 +101,7 @@ public class Solution {
         Arrays.sort(nums);
         int res = nums[0] + nums[1] + nums[2];
         for (int i = 0; i < nums.length; i++) {
-            int start = i+1, end = nums.length-1;
+            int start = i + 1, end = nums.length - 1;
             while (start < end) {
                 int sum = nums[i] + nums[start] + nums[end];
                 if (Math.abs(target - sum) < Math.abs(target - res)) res = sum;
@@ -171,12 +169,12 @@ public class Solution {
         List<List<Integer>> res = new ArrayList<>();
         Arrays.sort(nums);
         for (int i = 0; i < nums.length; i++) {
-            if (i != 0 && nums[i] == nums[i-1]) continue;
+            if (i != 0 && nums[i] == nums[i - 1]) continue;
 
-            for (int j = i+1; j < nums.length; j++) {
-                if (j != i+1 && nums[j] == nums[j-1]) continue;
+            for (int j = i + 1; j < nums.length; j++) {
+                if (j != i + 1 && nums[j] == nums[j - 1]) continue;
 
-                int left = j+1, right = nums.length-1;
+                int left = j + 1, right = nums.length - 1;
                 while (left < right) {
                     int sum = nums[i] + nums[j] + nums[left] + nums[right];
                     if (sum == target) {
@@ -188,10 +186,9 @@ public class Solution {
                         res.add(temp);
                         left++;
                         right--;
-                        while (left < right && nums[left] == nums[left-1]) left++;
-                        while (left < right && nums[right] == nums[right+1]) right--;
-                    }
-                    else if (sum < target) left++;
+                        while (left < right && nums[left] == nums[left - 1]) left++;
+                        while (left < right && nums[right] == nums[right + 1]) right--;
+                    } else if (sum < target) left++;
                     else right--;
                 }
             }
